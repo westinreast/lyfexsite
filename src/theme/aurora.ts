@@ -1,0 +1,25 @@
+// Aurora tokens for use in TS/SVG (charts). Mirrors tailwind.config.js, which
+// mirrors lib/theme/aurora_colors.dart. Single source for non-class color use.
+export const Aurora = {
+  bg: '#0A0314',
+  surfaceLow: '#14091E',
+  surfaceMid: '#1F1230',
+  surfaceHigh: '#251A3D',
+  glassTop: '#170B2C',
+  glassBottom: '#120822',
+  violet: '#9A4DFF',
+  violetBright: '#B98BFF',
+  violetDeep: '#5B2BD6',
+  coach: '#FF2EA0',
+  cyan: '#7DE3FF',
+  irisCyan: '#4DC3FF',
+  mint: '#46E5B5',
+  amber: '#F3C969',
+  rose: '#FF6E8E',
+  activity: '#FFA94D',
+  textPrimary: '#F2EAFA',
+  textSecondary: '#A89AC4',
+  textTertiary: '#6A5599',
+  borderHair: '#2A1A42',
+  borderSubtle: '#3F2A60',
+} as const

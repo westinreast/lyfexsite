@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #0a0314;
+  color: #f2eafa;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Aurora glassmorphism — mirrors AuroraGlassCard (lib/components). */
+@layer components {
+  .glass {
+    background: linear-gradient(180deg, #170b2c 0%, #120822 100%);
+    border: 1px solid rgba(168, 154, 196, 0.14);
+    box-shadow:
+      0 18px 48px -12px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(18px);
+  }
+  .glass-strong {
+    background: linear-gradient(180deg, rgba(37, 26, 61, 0.9) 0%, rgba(18, 8, 34, 0.9) 100%);
+    border: 1px solid rgba(154, 77, 255, 0.34);
+    box-shadow:
+      0 24px 64px -16px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(22px);
+  }
+  .iris-text {
+    background: linear-gradient(135deg, #ff2ea0 0%, #9a4dff 50%, #4dc3ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hairline {
+    border-color: rgba(168, 154, 196, 0.14);
+  }
+}
+
+/* Aurora range slider — themed thumb + track. */
+input[type='range'].aurora-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(168, 154, 196, 0.18);
+  outline: none;
+}
+input[type='range'].aurora-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #b98bff, #9a4dff 60%, #5b2bd6);
+  border: 2px solid #f2eafa;
+  box-shadow: 0 0 14px rgba(154, 77, 255, 0.7);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+input[type='range'].aurora-range::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+input[type='range'].aurora-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #b98bff, #9a4dff 60%, #5b2bd6);
+  border: 2px solid #f2eafa;
+  box-shadow: 0 0 14px rgba(154, 77, 255, 0.7);
+  cursor: pointer;
+}
+
+/* subtle aurora background grid */
+.grid-fade {
+  background-image:
+    linear-gradient(rgba(154, 77, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(154, 77, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
