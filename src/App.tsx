@@ -3,6 +3,7 @@ import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { PlayableEngine } from './components/PlayableEngine'
 import { SignalNoise } from './components/SignalNoise'
+import { AppShowcase } from './components/AppShowcase'
 import { Features, Footer } from './components/Features'
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
         <Hero />
         <PlayableEngine />
         <SignalNoise />
+        <AppShowcase />
         <Features />
       </main>
       <Footer />

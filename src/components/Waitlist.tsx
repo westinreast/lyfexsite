@@ -9,6 +9,18 @@ const SUPABASE_KEY = 'sb_publishable_vPLJVcC2GqGZnlOrGCZa_g_uxy2A84c'
 
 type State = 'idle' | 'busy' | 'done' | 'error'
 
+/** Tag signups with the campaign that brought them (?utm_source=…) so the
+ * waitlist doubles as channel attribution. Falls back to plain marketing_site. */
+function signupSource(): string {
+  try {
+    const utm = new URLSearchParams(window.location.search).get('utm_source')
+    if (utm) return `marketing_site:${utm.replace(/[^\w-]/g, '').slice(0, 40)}`
+  } catch {
+    /* ignore */
+  }
+  return 'marketing_site'
+}
+
 export function WaitlistForm() {
   const [email, setEmail] = useState('')
   const [state, setState] = useState<State>('idle')
@@ -26,7 +38,7 @@ export function WaitlistForm() {
           'Content-Type': 'application/json',
           Prefer: 'return=minimal',
         },
-        body: JSON.stringify({ email: email.trim(), source: 'marketing_site' }),
+        body: JSON.stringify({ email: email.trim(), source: signupSource() }),
       })
       // 201 = added; 409 = duplicate email, which is success from the visitor's
       // point of view ("you're on the list") and leaks nothing.

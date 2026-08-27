@@ -17,6 +17,9 @@ export function Nav() {
           <a href="#signal" className="transition hover:text-aurora-textPrimary">
             Signal &amp; Noise
           </a>
+          <a href="#app" className="transition hover:text-aurora-textPrimary">
+            Inside the app
+          </a>
           <a href="#features" className="transition hover:text-aurora-textPrimary">
             How it works
           </a>
