@@ -16,7 +16,9 @@ body {
   margin: 0;
   background-color: #0a0314;
   color: #f2eafa;
-  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* -apple-system first: the app's UI font is SF Pro, so Apple devices match it
+     exactly; everyone else gets Inter, the closest webfont. */
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -41,7 +43,8 @@ body {
     backdrop-filter: blur(22px);
   }
   .iris-text {
-    background: linear-gradient(135deg, #ff2ea0 0%, #9a4dff 50%, #4dc3ff 100%);
+    /* iris stops per aurora_colors.dart: violet sits at 46%, not 50% */
+    background: linear-gradient(135deg, #ff2ea0 0%, #9a4dff 46%, #4dc3ff 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

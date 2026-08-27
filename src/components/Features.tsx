@@ -1,4 +1,5 @@
 import { GlassCard } from './ui'
+import { WaitlistForm } from './Waitlist'
 
 const FEATURES = [
   {
@@ -74,24 +75,8 @@ export function Features() {
           Same formulas, same safety logic, ported straight from the app. LyfeX is in pre-launch — be
           first to know when it opens.
         </p>
-        <form
-          className="flex w-full max-w-md flex-col gap-2 sm:flex-row"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <input
-            type="email"
-            required
-            placeholder="you@email.com"
-            className="flex-1 rounded-full border border-aurora-borderSubtle bg-aurora-bg/60 px-5 py-3 text-aurora-textPrimary placeholder:text-aurora-textTertiary focus:border-aurora-violet focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="rounded-full bg-aurora-violet px-6 py-3 font-bold text-white shadow-glow transition hover:bg-aurora-violetBright"
-          >
-            Notify me
-          </button>
-        </form>
-        <p className="text-xs text-aurora-textTertiary">Placeholder form — wire to your provider before launch.</p>
+        <WaitlistForm />
+        <p className="text-xs text-aurora-textTertiary">One email when LyfeX opens. Nothing else.</p>
       </GlassCard>
     </section>
   )
@@ -100,12 +85,34 @@ export function Features() {
 export function Footer() {
   return (
     <footer className="border-t border-aurora-borderHair">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-10 text-sm text-aurora-textTertiary md:flex-row">
-        <span>
-          Lyfe<span className="iris-text font-bold">X</span> · local-first health · © 2026
-        </span>
-        <span>Built with the real engine. No LLM calls on this page.</span>
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-5 py-10 text-sm text-aurora-textTertiary md:flex-row">
+        <div className="flex flex-col items-center gap-1 md:items-start">
+          <span className="text-base font-extrabold tracking-tight text-aurora-textPrimary">
+            Lyfe<span className="iris-text">X</span>
+          </span>
+          {/* the app's splash tagline, same treatment: caps, wide tracking, tertiary */}
+          <span className="text-[10px] font-semibold uppercase tracking-[0.3em]">
+            Know your body
+          </span>
+        </div>
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          <a href="https://westinreast.github.io/lyfexprivacy/" className="transition hover:text-aurora-textPrimary">
+            Privacy
+          </a>
+          <a href="https://westinreast.github.io/lyfexprivacy/terms.html" className="transition hover:text-aurora-textPrimary">
+            Terms
+          </a>
+          <a href="mailto:westinreast@lyfex.ai" className="transition hover:text-aurora-textPrimary">
+            Contact
+          </a>
+        </nav>
+        <span>© 2026 Vitalshield Solutions LLC</span>
       </div>
+      <p className="mx-auto max-w-2xl px-5 pb-8 text-center text-xs leading-relaxed text-aurora-textTertiary/80">
+        LyfeX is a fitness and wellness tool, not a medical device or a substitute for professional
+        medical advice. Always consult a qualified provider before starting any exercise or
+        nutrition program.
+      </p>
     </footer>
   )
 }

@@ -18,7 +18,9 @@ const TRUE_RATE = -1.1 // lb/wk hidden truth
 const START_LB = 198
 
 export function SignalNoise() {
-  const [reveal, setReveal] = useState(58)
+  // Start mid-convergence (not at 58 days, where the rate has already settled)
+  // so the visitor sees genuine uncertainty first and scrubbing tells the story.
+  const [reveal, setReveal] = useState(21)
   const [noise, setNoise] = useState(1.5)
 
   const series = useMemo(
@@ -28,7 +30,12 @@ export function SignalNoise() {
 
   const revealedN = Math.max(2, Math.round(reveal))
   const revealed = series.weighIns.slice(0, revealedN)
-  const kf = useMemo(() => computeRateKalman(revealed, revealedN - 1), [revealed, revealedN])
+  // Feed the noise dial's variance in as the filter's R — the confidence band
+  // must widen when the visitor cranks the noise, or the copy below is a lie.
+  const kf = useMemo(
+    () => computeRateKalman(revealed, revealedN - 1, noise * noise),
+    [revealed, revealedN, noise],
+  )
 
   const allLb = series.weighIns.map((w) => w.lb)
   const [yMin, yMax] = niceBounds(Math.min(...allLb), Math.max(...allLb))

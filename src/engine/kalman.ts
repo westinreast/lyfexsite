@@ -35,8 +35,17 @@ export interface KalmanResult {
  * Mirrors the Python implementation step-for-step (predict over dt days, then
  * scalar update with the new measurement). `asOfDay` optionally extrapolates the
  * trend uncertainty to "now" when the last weigh-in is stale.
+ *
+ * `measurementVarLb2` overrides the measurement-noise variance R (defaults to
+ * the app's KF_R, which is fit to real weigh-in noise). The Signal-through-noise
+ * demo passes the noise dial's variance here so the confidence honestly widens
+ * and narrows with the scatter the visitor is looking at.
  */
-export function computeRateKalman(weighIns: WeighIn[], asOfDay?: number): KalmanResult | null {
+export function computeRateKalman(
+  weighIns: WeighIn[],
+  asOfDay?: number,
+  measurementVarLb2: number = KF_R,
+): KalmanResult | null {
   // collapse to one weigh-in per day (last wins), then sort
   const byDay = new Map<number, number>()
   for (const w of weighIns) byDay.set(w.day, w.lb)
@@ -44,9 +53,10 @@ export function computeRateKalman(weighIns: WeighIn[], asOfDay?: number): Kalman
   if (pts.length < 2) return null
 
   // state x = [level, trend(lb/day)]; covariance P (2x2)
+  const R = measurementVarLb2
   let level = pts[0][1]
   let trend = 0.0
-  let p00 = KF_R
+  let p00 = R
   let p01 = 0.0
   let p10 = 0.0
   let p11 = KF_TREND_PRIOR_STD ** 2
@@ -71,7 +81,7 @@ export function computeRateKalman(weighIns: WeighIn[], asOfDay?: number): Kalman
     p11 = d11 + q * dt
     // --- update with weigh-in z ---
     const y = z - level
-    const s = p00 + KF_R
+    const s = p00 + R
     const k0 = p00 / s
     const k1 = p10 / s
     level = level + k0 * y

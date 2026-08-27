@@ -34,7 +34,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'Segoe UI', 'sans-serif'],
+        serif: ['Gelasio', 'Georgia', 'serif'], // the app's "LyfeX Serif" brand font
         mono: ['"SF Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       boxShadow: {
@@ -42,7 +43,7 @@ export default {
         float: '0 18px 48px -12px rgba(0,0,0,0.6)',
       },
       backgroundImage: {
-        iris: 'linear-gradient(135deg, #FF2EA0 0%, #9A4DFF 50%, #4DC3FF 100%)',
+        iris: 'linear-gradient(135deg, #FF2EA0 0%, #9A4DFF 46%, #4DC3FF 100%)',
       },
       keyframes: {
         'fade-up': {

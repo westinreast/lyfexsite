@@ -4,7 +4,7 @@ import { runForecast } from '../engine/forecast'
 import type { Sex } from '../engine/constants'
 import { Aurora } from '../theme/aurora'
 import { GlassCard, Pill, SegToggle, Slider, Stat } from './ui'
-import { areaPath, linScale, niceBounds, smoothPath, type Pt } from './chart'
+import { areaPath, linePath, linScale, niceBounds, smoothPath, type Pt } from './chart'
 
 // Chart geometry (SVG user units; rendered responsive via viewBox).
 const W = 760
@@ -143,8 +143,11 @@ export function PlayableEngine() {
                   opacity={0.8}
                 />
 
-                {/* adapting daily-target (kcal) — secondary axis, thin amber */}
-                <path d={smoothPath(kcalPts)} fill="none" stroke={Aurora.amber} strokeWidth={1.4} strokeDasharray="3 4" opacity={0.65} />
+                {/* adapting daily-target (kcal) — secondary axis, thin amber.
+                    Straight segments, not smoothed: the jump to maintenance at
+                    goal-arrival is a real step, and Catmull-Rom smoothing turns
+                    it into an overshooting spike that reads as a glitch. */}
+                <path d={linePath(kcalPts)} fill="none" stroke={Aurora.amber} strokeWidth={1.4} strokeDasharray="3 4" opacity={0.65} />
 
                 {/* requested (uncapped) ghost */}
                 {capActive && (
