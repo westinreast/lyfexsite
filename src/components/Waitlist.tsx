@@ -42,6 +42,18 @@ export function WaitlistForm() {
       })
       // 201 = added; 409 = duplicate email, which is success from the visitor's
       // point of view ("you're on the list") and leaks nothing.
+      if (res.status === 201) {
+        // Fire-and-forget poke: the waitlist-confirm function sweeps pending
+        // rows server-side and sends the confirmation email. No payload — the
+        // function never trusts caller data, and a lost poke self-heals on the
+        // next signup's sweep.
+        fetch(`${SUPABASE_URL}/functions/v1/waitlist-confirm`, {
+          method: 'POST',
+          headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+        }).catch(() => {
+          /* confirmation email is best-effort; signup already succeeded */
+        })
+      }
       setState(res.status === 201 || res.status === 409 ? 'done' : 'error')
     } catch {
       setState('error')
